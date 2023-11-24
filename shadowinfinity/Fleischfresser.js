@@ -1,11 +1,5 @@
-class Fleischfresser {
-    zeile;
-    spalte;
+class Fleischfresser extends Lebewesen {
     energie = 1000;
-    constructor(z,s) {
-        this.zeile = z;
-        this.spalte = s;
-    }
     placeInMatrix() {
         matrix[this.zeile][this.spalte] = 3;
     };

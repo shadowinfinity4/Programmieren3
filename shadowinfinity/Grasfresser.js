@@ -1,11 +1,5 @@
-class Grasfresser {
-    zeile;
-    spalte;
+class Grasfresser extends Lebewesen {
     energie = 15;
-    constructor(z,s) {
-        this.zeile = z;
-        this.spalte = s;
-    }
     placeInMatrix() {
         matrix[this.zeile][this.spalte] = 2;
     };

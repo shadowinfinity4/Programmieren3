@@ -1,11 +1,5 @@
-class Grass {
-    zeile;
-    spalte;
+class Grass extends Lebewesen {
     energie = 0;
-    constructor(z,s) {
-        this.zeile = z;
-        this.spalte = s
-    }
     placeInMatrix() {
         matrix[this.zeile][this.spalte] = 1
     };

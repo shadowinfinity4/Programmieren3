@@ -1,10 +1,4 @@
-class RasenDestroyer {
-    zeile;
-    spalte;
-    constructor(z,s) {
-        this.zeile = z;
-        this.spalte = s
-    }
+class RasenDestroyer extends Lebewesen {
     placeInMatrix() {
         matrix[this.zeile][this.spalte] = 2
     };
