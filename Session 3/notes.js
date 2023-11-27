@@ -51,3 +51,5 @@ class Lebewesen {
         objekteListe.splice(index,1)
     }
 }
+
+// filter funktioniert nicht
