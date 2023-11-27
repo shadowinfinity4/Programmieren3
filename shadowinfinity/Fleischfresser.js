@@ -1,9 +1,6 @@
 class Fleischfresser extends Lebewesen {
     energie = 1000;
-    placeInMatrix() {
-        matrix[this.zeile][this.spalte] = 3;
-    };
-
+    farbe = 3;
     spielzug() {
         let snow = this.createSnowMatrix();
         if (snow.length > 0) {
@@ -17,7 +14,6 @@ class Fleischfresser extends Lebewesen {
             this.die();
         }
     };
-
     move() {
         let grasfresser = this.createGrasfresserMatrix();
         if (grasfresser.length > 0) {
@@ -32,7 +28,6 @@ class Fleischfresser extends Lebewesen {
             this.energie--;
         }
     };
-
     multiply() {
         let grass = this.createGrassMatrix();
         if (grass.length > 0) {
@@ -43,92 +38,8 @@ class Fleischfresser extends Lebewesen {
             objekteListe.push(newFleischfresser);
         };
     };
-
     die() {
         matrix[this.zeile][this.spalte] = 0;
         this.deleteObject(this.zeile,this.spalte);
     };
-
-    isGrass([a,b]) {
-        if (a > (matrix.length-1)|| a < 0 || b > (matrix.length-1) || b < 0) {
-            return false
-        } else if (matrix[a][b] === 1) {
-            return true
-        } else {
-            return false
-        }
-    };
-
-    createGrassMatrix() {
-        let neighbours = [
-            [this.zeile + 1,this.spalte],
-            [this.zeile - 1,this.spalte],
-            [this.zeile,this.spalte + 1],
-            [this.zeile,this.spalte - 1],
-            [this.zeile - 1,this.spalte - 1],
-            [this.zeile + 1,this.spalte + 1],
-            [this.zeile - 1,this.spalte + 1],
-            [this.zeile + 1,this.spalte - 1]
-        ]
-        return neighbours.filter(this.isGrass);
-    };
-
-    isGrasfresser([a,b]) {
-        if (a > (matrix.length-1)|| a < 0 || b > (matrix.length-1) || b < 0) {
-            return false
-        } else if (matrix[a][b] === 2) {
-            return true
-        } else {
-            return false
-        }
-    };
-
-    createGrasfresserMatrix() {
-        let neighbours = [
-            [this.zeile + 1,this.spalte],
-            [this.zeile - 1,this.spalte],
-            [this.zeile,this.spalte + 1],
-            [this.zeile,this.spalte - 1],
-            [this.zeile - 1,this.spalte - 1],
-            [this.zeile + 1,this.spalte + 1],
-            [this.zeile - 1,this.spalte + 1],
-            [this.zeile + 1,this.spalte - 1]
-        ]
-        return neighbours.filter(this.isGrasfresser);
-    };
-
-    isSnow([a,b]) {
-        if (a > (matrix.length-1)|| a < 0 || b > (matrix.length-1) || b < 0) {
-            return false
-        } else if (matrix[a][b] === 4) {
-            return true
-        } else {
-            return false
-        }
-    };
-
-    createSnowMatrix() {
-        let neighbours = [
-            [this.zeile + 1,this.spalte],
-            [this.zeile - 1,this.spalte],
-            [this.zeile,this.spalte + 1],
-            [this.zeile,this.spalte - 1],
-            [this.zeile - 1,this.spalte - 1],
-            [this.zeile + 1,this.spalte + 1],
-            [this.zeile - 1,this.spalte + 1],
-            [this.zeile + 1,this.spalte - 1]
-        ]
-        return neighbours.filter(this.isSnow);
-    };
-
-    deleteObject(zeile,spalte) {
-        let index = objekteListe.findIndex(function(object){
-            if (object.zeile === zeile && object.spalte === spalte) {
-                return true
-            } else {
-                return false
-            }
-        });
-        objekteListe.splice(index,1)
-    }
 };

@@ -23,7 +23,6 @@ class Schnee {
         }
         console.log(this.energie)
     };
-
     melt() {
         matrix[this.zeile][this.spalte] = 0;
         this.deleteObject(this.zeile,this.spalte);
@@ -33,7 +32,6 @@ class Schnee {
             objekteListe.push(newSnow)
         }
     };
-
     deleteObject(zeile,spalte) {
         let index = objekteListe.findIndex(function(object){
             if (object.zeile === zeile && object.spalte === spalte) {
@@ -44,5 +42,5 @@ class Schnee {
         });
         objekteListe.splice(index,1)
     };
-    };
+};
 
