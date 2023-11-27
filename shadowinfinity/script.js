@@ -423,7 +423,7 @@ let objekteListe = [new Grass(x,y+1), new Grass(x,y+2), new Grass(x,y+3),
 function setup() {
     createCanvas(500,500);
     background("lightgray");
-    frameRate(3);
+    frameRate(30);
     for (let i = 0; i < objekteListe.length; i++) {
         objekteListe[i].placeInMatrix()
     };
