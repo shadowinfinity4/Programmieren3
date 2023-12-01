@@ -8,15 +8,6 @@ class Lebewesen {
     placeInMatrix() {
         matrix[this.zeile][this.spalte] = this.farbe;
     };
-    isDirt([a,b]) {
-        if (a > (matrix.length-1)|| a < 0 || b > (matrix.length-1) || b < 0) {
-            return false
-        } else if (matrix[a][b] === 0) {
-            return true
-        } else {
-            return false
-        }
-    };
     createDirtMatrix() {
         let neighbours = [
             [this.zeile + 1,this.spalte],
@@ -28,16 +19,7 @@ class Lebewesen {
             [this.zeile - 1,this.spalte + 1],
             [this.zeile + 1,this.spalte - 1]
         ]
-        return neighbours.filter(this.isDirt);
-    };
-    isGrass([a,b]) {
-        if (a > (matrix.length-1)|| a < 0 || b > (matrix.length-1) || b < 0) {
-            return false
-        } else if (matrix[a][b] === 1) {
-            return true
-        } else {
-            return false
-        }
+        return neighbours.filter(koordinatenpaar => this.isWesen(koordinatenpaar,0));
     };
     createGrassMatrix() {
         let neighbours = [
@@ -50,16 +32,7 @@ class Lebewesen {
             [this.zeile - 1,this.spalte + 1],
             [this.zeile + 1,this.spalte - 1]
         ]
-        return neighbours.filter(this.isGrass);
-    };
-    isSnow([a,b]) {
-        if (a > (matrix.length-1)|| a < 0 || b > (matrix.length-1) || b < 0) {
-            return false
-        } else if (matrix[a][b] === 4) {
-            return true
-        } else {
-            return false
-        }
+        return neighbours.filter(koordinatenpaar => this.isWesen(koordinatenpaar,1));
     };
     createSnowMatrix() {
         let neighbours = [
@@ -72,16 +45,7 @@ class Lebewesen {
             [this.zeile - 1,this.spalte + 1],
             [this.zeile + 1,this.spalte - 1]
         ]
-        return neighbours.filter(this.isSnow);
-    };
-    isGrasfresser([a,b]) {
-        if (a > (matrix.length-1)|| a < 0 || b > (matrix.length-1) || b < 0) {
-            return false
-        } else if (matrix[a][b] === 2) {
-            return true
-        } else {
-            return false
-        }
+        return neighbours.filter(koordinatenpaar => this.isWesen(koordinatenpaar,4));
     };
     createGrasfresserMatrix() {
         let neighbours = [
@@ -94,7 +58,16 @@ class Lebewesen {
             [this.zeile - 1,this.spalte + 1],
             [this.zeile + 1,this.spalte - 1]
         ]
-        return neighbours.filter(this.isGrasfresser);
+        return neighbours.filter(koordinatenpaar => this.isWesen(koordinatenpaar,2));
+    };
+    isWesen([x,y],c) {
+        if (x > (matrix.length-1)|| x < 0 || y > (matrix.length-1) || y < 0) {
+            return false
+        } else if (matrix[x][y] === c) {
+            return true
+        } else {
+            return false
+        }
     };
     deleteObject(zeile,spalte) {
         let index = objekteListe.findIndex(function(object){
