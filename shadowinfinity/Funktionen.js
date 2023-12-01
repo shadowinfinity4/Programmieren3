@@ -32,13 +32,13 @@ function randomNumber(min,max){
     return Math.floor(Math.random()*(max-min)+min)
 }
 
-function istTreffer([a,b]) {
-    if (a > 9 || a < 0 || b > 9 || b < 0) {
-        return false
-    } else if (matrix[a][b] === 1){
-        return true
-    } else {
-        return false
-    }
+// function istTreffer([a,b]) {
+//     if (a > 9 || a < 0 || b > 9 || b < 0) {
+//         return false
+//     } else if (matrix[a][b] === 1){
+//         return true
+//     } else {
+//         return false
+//     }
 
-}
+// }
