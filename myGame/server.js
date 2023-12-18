@@ -1,33 +1,62 @@
-
-// const Grass = require("./classes/Gras.js");
-// const Grazer = require("./classes/Grasfresser.js");
-// const Predator = require("./classes/Fleischfresser.js");
+const Grass = require("./classes/Gras.js");
+const Grazer = require("./classes/Grasfresser.js");
+const Fleischfresser = require("./classes/Fleischfresser.js");
 
 const express = require("express");
+const { ClientRequest } = require("http");
 const app = express();
 
 app.use(express.static("./client"));
 
-app.get("/",function (req,res){
+app.get("/", function (req, res) {
     res.redirect("index.html");
 });
 
 let server = require('http').Server(app);
 let io = require('socket.io')(server);
 
-server.listen(3000, function (){
+let clients = [];
+let isGameRunning = false;
+let interValID;
+
+server.listen(3000, function () {
     console.log("Der Server läuft auf port 3000...");
-    // initGame();
-    // setInterval(function(){
-    //     updateGame();
-    // }, 1000);
-   
+
+    io.on("connection", function (socket) {
+        console.log("ws connection established...");
+        clients.push(socket.id);
+        // Spielstart
+        if (clients.length == 1 && isGameRunning == false) {
+            console.log("Starte Spiel... Wenn noch nicht gestartet...")
+            initGame()
+            interValID = setInterval(updateGame, 1000);
+            isGameRunning = true;
+        }
+        // Verhalten wenn Clients verlassen
+        socket.on("disconnect", function () {
+            console.log("client left...");
+            const foundIndex = clients.findIndex(id => id === socket.id);
+            if (foundIndex >= 0) {
+                clients.splice(foundIndex, 1);
+            }
+            if (clients.length === 0) {
+                isGameRunning = false;
+                clearInterval(interValID);
+                console.log("Spiel gestoppt: keine Clients", clients.length);
+            }
+        });
+    });
+
+
 });
 
-io.on("connection", function(socket){
-    console.log("ws connection established...");
-    socket.emit("matrix",matrix)
-});
+
+
+
+
+
+
+
 
 // game logic on server
 matrix = [
@@ -38,70 +67,78 @@ matrix = [
     [1, 1, 0, 2, 0],
     [1, 1, 0, 2, 0],
     [1, 1, 0, 0, 0]
- ];
+];
 
-// grassArr = [];
-// grazerArr = [];
-// predatorArr =[];
+module.exports = grassArr = [];
+module.exports = grazerArr = [];
+module.exports = predatorArr = [];
 
-// function getRandMatrix(cols, rows){
-//     let matrix = [];
-//     for(let y = 0; y <= rows; y++){
-//         matrix.push([]);
-//         for(let x = 0; x <= cols; x++){
-//             matrix[y][x] = Math.floor(Math.random() * 2);
-//         }
-//     }
-//     return matrix;
-// }
+function getRandMatrix(cols, rows) {
+    let matrix = [];
+    for (let y = 0; y <= rows; y++) {
+        matrix.push([]);
+        for (let x = 0; x <= cols; x++) {
+            matrix[y][x] = Math.floor(Math.random() * 2);
+        }
+    }
+    return matrix;
+}
 
-// function addMoreCreatures(){
-//     for (let y = 0; y < matrix.length; y++) {
-//         for (let x = 0; x < matrix[y].length; x++) {
-//             if(y == x){
-//                 if(y % 2 == 0) matrix[y][x] = 3;
-//                 else matrix[y][x] =2;
-//             }
-//         }
-//     }
-// }
+function addMoreCreatures() {
+    for (let y = 0; y < matrix.length; y++) {
+        for (let x = 0; x < matrix[y].length; x++) {
+            if (y == x) {
+                if (y % 2 == 0) matrix[y][x] = 3;
+                else matrix[y][x] = 2;
+            }
+        }
+    }
+}
 
 
-// function initGame(){
-//     console.log('init game....');
-//     matrix = getRandMatrix(50,50);
-//     addMoreCreatures();
+function initGame() {
+    console.log('init game....');
+    matrix = getRandMatrix(50, 50);
+    addMoreCreatures();
 
-//     // durch Matrix laufen und Lebewesen erstellen
-//     for (let y = 0; y < matrix.length; y++) {
-//         for (let x = 0; x < matrix[y].length; x++) {
-//             if(matrix[y][x] == 1){
-//                 let grassObj = new Grass(x,y);
-//                 grassArr.push(grassObj);
-//             }else if(matrix[y][x] == 2){
-//                 let grazerObj = new Grazer(x,y);
-//                 grazerArr.push(grazerObj);
-//             }else if(matrix[y][x] == 3){
-//                 let predatorObj = new Predator(x,y);
-//                 predatorArr.push(predatorObj);
-//             } 
-//         }   
-//     }
-// }
+    // durch Matrix laufen und Lebewesen erstellen
+    for (let y = 0; y < matrix.length; y++) {
+        for (let x = 0; x < matrix[y].length; x++) {
+            if (matrix[y][x] == 1) {
+                let grassObj = new Grass(x, y);
+                grassArr.push(grassObj);
+            } else if (matrix[y][x] == 2) {
+                let grazerObj = new Grazer(x, y);
+                grazerArr.push(grazerObj);
+            } else if (matrix[y][x] == 3) {
+                let predatorObj = new Fleischfresser(x, y);
+                predatorArr.push(predatorObj);
+            }
+        }
+    }
+    console.log("Sende matrix zu clients");
+    io.sockets.emit("matrix", matrix);
+}
 
-// function updateGame(){
-//     console.log("update game...");
-//     for(let i = 0; i < grassArr.length; i++){
-//         let grassObj = grassArr[i];
-//         grassObj.mul();
-//     }
+function updateGame() {
+    console.log("update game...");
+    for (let i = 0; i < grassArr.length; i++) {
+        let grassObj = grassArr[i];
+        grassObj.plantNewGrass();
+    }
 
-//     for(let i = 0; i < grazerArr.length; i++){
-//         let grazerObj = grazerArr[i];
-//         grazerObj.eat();
-//         grazerObj.mul();
 
-//     }
-//     //console.log(matrix);
-// }
+    for (let i = 0; i < grazerArr.length; i++) {
+        let grazerObj = grazerArr[i];
+        grazerObj.spielzug();
+        grazerObj.multiply();
 
+    }
+    // console.log(matrix);
+}
+
+
+
+
+// Arrays funktionieren nicht (?)
+// update funktioniert nicht (?)
