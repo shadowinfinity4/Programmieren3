@@ -5,13 +5,15 @@
 // Grasfresser und Fleischfresser sterben, wenn sie in der Nähe davon sind.
 // Gras kann dort nicht wachsen.
 
-class Schnee {
+const tools = require("./Funktionen.js");
+
+module.exports = class Schnee {
     zeile;
     spalte;
-    energie = randomNumber(150,200);
+    energie = tools.randomNumber(150,200);
     constructor(z,s) {
-        this.zeile = randomNumber(0,matrix.length);
-        this.spalte = randomNumber(0,matrix.length);
+        this.zeile = tools.randomNumber(0,matrix.length);
+        this.spalte = tools.randomNumber(0,matrix.length);
     }
     placeInMatrix() {
         matrix[this.zeile][this.spalte] = 4;
@@ -25,22 +27,13 @@ class Schnee {
     };
     melt() {
         matrix[this.zeile][this.spalte] = 0;
-        this.deleteObject(this.zeile,this.spalte);
+        tools.removeFromList(this,SnowArr);
         for (let i = 0; i < 2; i++) {
             let newSnow = new Schnee()
             newSnow.placeInMatrix()
-            objekteListe.push(newSnow)
+            SnowArr.push(newSnow)
         }
     };
-    deleteObject(zeile,spalte) {
-        let index = objekteListe.findIndex(function(object){
-            if (object.zeile === zeile && object.spalte === spalte) {
-                return true
-            } else {
-                return false
-            }
-        });
-        objekteListe.splice(index,1)
-    };
 };
+
 

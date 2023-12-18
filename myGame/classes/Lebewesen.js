@@ -1,4 +1,4 @@
-class Lebewesen {
+module.exports = class Lebewesen {
     zeile;
     spalte;
     constructor(z,s,) {
@@ -69,14 +69,4 @@ class Lebewesen {
             return false
         }
     };
-    deleteObject(zeile,spalte) {
-        let index = objekteListe.findIndex(function(object){
-            if (object.zeile === zeile && object.spalte === spalte) {
-                return true
-            } else {
-                return false
-            }
-        });
-        objekteListe.splice(index,1)
-    }
 }

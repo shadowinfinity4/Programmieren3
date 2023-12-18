@@ -1,4 +1,8 @@
-class Fleischfresser extends Lebewesen {
+const Lebewesen = require("./Lebewesen.js");
+
+const tools = require("./Funktionen.js");
+
+module.exports = class Fleischfresser extends Lebewesen {
     energie = 1000;
     farbe = 3;
     spielzug() {
@@ -18,9 +22,9 @@ class Fleischfresser extends Lebewesen {
         let grasfresser = this.createGrasfresserMatrix();
         if (grasfresser.length > 0) {
             this.energie = this.energie + 100;
-            let chosenGrasfresser = grasfresser[randomNumber(0,grasfresser.length)];
+            let chosenGrasfresser = grasfresser[tools.randomNumber(0,grasfresser.length)];
             matrix[this.zeile][this.spalte] = 0;
-            this.deleteObject(chosenGrasfresser[0],chosenGrasfresser[1]);
+            tools.removeFromList(chosenGrasfresser,grazerArr);
             this.zeile = chosenGrasfresser[0];
             this.spalte = chosenGrasfresser[1];
             matrix[this.zeile][this.spalte] = 3;
@@ -31,15 +35,15 @@ class Fleischfresser extends Lebewesen {
     multiply() {
         let grass = this.createGrassMatrix();
         if (grass.length > 0) {
-            let chosenGrass = grass[randomNumber(0,grass.length)];
-            this.deleteObject(chosenGrass[0],chosenGrass[1]);
+            let chosenGrass = grass[tools.randomNumber(0,grass.length)];
+            tools.removeFromList(chosenGrass,grassArr);
             let newFleischfresser = new Fleischfresser(chosenGrass[0],chosenGrass[1])
             newFleischfresser.placeInMatrix();
-            objekteListe.push(newFleischfresser);
+            predatorArr.push(newFleischfresser);
         };
     };
     die() {
         matrix[this.zeile][this.spalte] = 0;
-        this.deleteObject(this.zeile,this.spalte);
+        tools.removeFromList(this,predatorArr);
     };
 };
