@@ -33,7 +33,7 @@ server.listen(3000, function () {
             isGameRunning = true;
         }
         // Verhalten wenn Clients verlassen
-        socket.on("disconnect", function () {
+        socket.on("disconnect", function() {
             console.log("client left...");
             const foundIndex = clients.findIndex(id => id === socket.id);
             if (foundIndex >= 0) {
