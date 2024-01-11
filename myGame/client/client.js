@@ -36,7 +36,8 @@ function draw(){
     }
 }
 
-window.onload = main
+module.exports = {draw}
 
+window.onload = main
 
 // function draw überprüfen

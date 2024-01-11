@@ -2,6 +2,8 @@ const Grass = require("./classes/Gras.js");
 const Grazer = require("./classes/Grasfresser.js");
 const Fleischfresser = require("./classes/Fleischfresser.js");
 
+const funct = require("./client/client.js")
+
 const express = require("express");
 const { ClientRequest } = require("http");
 const app = express();
@@ -122,6 +124,7 @@ function initGame() {
 
 function updateGame() {
     console.log("update game...");
+    funct.draw(matrix)
     for (let i = 0; i < grassArr.length; i++) {
         let grassObj = grassArr[i];
         grassObj.plantNewGrass();
