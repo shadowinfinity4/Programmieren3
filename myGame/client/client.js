@@ -37,3 +37,6 @@ function draw(){
 }
 
 window.onload = main
+
+
+// function draw überprüfen
