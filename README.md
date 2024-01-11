@@ -4,5 +4,3 @@ Programmieren 3 November
 
 1. Session
 2. Session
-
-hallo
