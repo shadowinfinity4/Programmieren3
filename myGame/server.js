@@ -2,7 +2,7 @@ const Grass = require("./classes/Gras.js");
 const Grazer = require("./classes/Grasfresser.js");
 const Fleischfresser = require("./classes/Fleischfresser.js");
 
-const funct = require("./client/client.js")
+// const funct = require("./client/client.js")
 
 const express = require("express");
 const { ClientRequest } = require("http");
@@ -124,10 +124,10 @@ function initGame() {
 
 function updateGame() {
     console.log("update game...");
-    funct.draw(matrix)
+    // funct.draw(matrix)
     for (let i = 0; i < grassArr.length; i++) {
         let grassObj = grassArr[i];
-        grassObj.plantNewGrass();
+        grassObj.spielzug();
     }
 
 
@@ -135,6 +135,13 @@ function updateGame() {
         let grazerObj = grazerArr[i];
         grazerObj.spielzug();
         grazerObj.multiply();
+
+    }
+
+
+    for (let i = 0; i < predatorArr.length; i++) {
+        let predatorObj = predatorArr[i];
+        predatorObj.spielzug();
 
     }
     // console.log(matrix);

@@ -6,10 +6,11 @@ module.exports = class Fleischfresser extends Lebewesen {
     energie = 1000;
     farbe = 3;
     spielzug() {
-        let snow = this.createSnowMatrix();
-        if (snow.length > 0) {
-            this.die();
-        } else if (this.energie > 2000) {
+        // let snow = this.createSnowMatrix();
+        // if (snow.length > 0) {
+        //     this.die();
+        // } else 
+        if (this.energie > 2000) {
             this.energie = 1000;
             this.multiply();
         } else if (this.energie > 0) {
@@ -38,6 +39,7 @@ module.exports = class Fleischfresser extends Lebewesen {
             let chosenGrass = grass[tools.randomNumber(0,grass.length)];
             tools.removeFromList(chosenGrass,grassArr);
             let newFleischfresser = new Fleischfresser(chosenGrass[0],chosenGrass[1])
+            console.log("Fleischfresser", newFleischfresser.zeile, newFleischfresser.spalte)
             newFleischfresser.placeInMatrix();
             predatorArr.push(newFleischfresser);
         };

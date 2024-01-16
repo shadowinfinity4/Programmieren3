@@ -18,6 +18,7 @@ function setup(){
 };
 
 function draw(){
+    console.log("draw")
     for (let zeile = 0; zeile < matrix.length; zeile++) {
         for (let spalte = 0; spalte < matrix[zeile].length; spalte++) {
             if (matrix[zeile][spalte] === 1) {
@@ -26,8 +27,8 @@ function draw(){
                 fill("red")
             } else if (matrix[zeile][spalte] === 3) {
                 fill("purple")
-            } else if (matrix[zeile][spalte] === 4) {
-                fill("white")
+            // } else if (matrix[zeile][spalte] === 4) {
+            //     fill("white")
             } else {
                 fill("yellow")
             } 
@@ -36,8 +37,9 @@ function draw(){
     }
 }
 
-module.exports = {draw}
+// module.exports = {draw}
 
 window.onload = main
 
-// function draw überprüfen
+// draw funktion bekommt daten nicht?
+// oder anderes problem mit draw
