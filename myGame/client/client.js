@@ -12,6 +12,9 @@ function main(){
     };
 
     socket.on("matrix",gotMatrix)
+
+    let knopf = document.getElementById("knopf")
+    
 };
 
 function setup(){
@@ -33,8 +36,8 @@ function draw(){
             } else {
                 fill("yellow")
             } 
-            // rect(y * (500/matrix.length),x * (500/matrix.length),500/matrix.length,500/matrix.length)
-            rect(y * side,x * side,side,side)
+            rect(y * (500/matrix.length),x * (500/matrix.length),500/matrix.length,500/matrix.length)
+            // rect(y * side,x * side,side,side)
         }
     }
 }
@@ -63,7 +66,7 @@ function draw(){
 
 // module.exports = {draw}
 
-window.onload = main;
+window.onload = main()
 
 // draw funktion bekommt daten nicht?
 // oder anderes problem mit draw

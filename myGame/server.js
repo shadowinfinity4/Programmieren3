@@ -56,8 +56,6 @@ server.listen(3000, function () {
 
 
 
-
-
 // game logic on server
 matrix = [
     [0, 0, 1, 0, 0],
@@ -149,6 +147,3 @@ function updateGame() {
 
 
 
-
-// Arrays funktionieren nicht (?)
-// update funktioniert nicht (?)
