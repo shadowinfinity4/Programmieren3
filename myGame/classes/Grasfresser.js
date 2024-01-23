@@ -10,7 +10,7 @@ module.exports = class Grasfresser extends Lebewesen {
         // if (snow.length > 0) {
         //     this.die();
         // } else
-        if (this.energie > 30) {
+        if (this.energie > 50) {
             this.energie = 15;
             this.multiply();
         } else if (this.energie > 0) {
@@ -24,11 +24,11 @@ module.exports = class Grasfresser extends Lebewesen {
         if (grass.length > 0) {
             this.energie++
             let chosenGrass = grass[tools.randomNumber(0,grass.length)];
-            matrix[this.zeile][this.spalte] = 0;
+            matrix[this.x][this.y] = 0;
             tools.removeFromList(chosenGrass,grassArr);
-            this.zeile = chosenGrass[0];
-            this.spalte = chosenGrass[1];
-            matrix[this.zeile][this.spalte] = 2;
+            this.x = chosenGrass[0];
+            this.y = chosenGrass[1];
+            matrix[this.x][this.y] = 2;
         } else {
             this.energie = this.energie - 1;
         }
@@ -39,13 +39,13 @@ module.exports = class Grasfresser extends Lebewesen {
             let chosenGrass = grass[Math.floor(tools.randomNumber(0,grass.length))];
             tools.removeFromList(chosenGrass,grassArr);
             let newGrasfresser = new Grasfresser(chosenGrass[0],chosenGrass[1])
-            console.log("Grasfresser", newGrasfresser.zeile, newGrasfresser.spalte)
+            console.log("Grasfresser", newGrasfresser.x, newGrasfresser.y)
             newGrasfresser.placeInMatrix();
             predatorArr.push(newGrasfresser);
         };
     };
     die() {
-        matrix[this.zeile][this.spalte] = 0;
+        matrix[this.x][this.y] = 0;
         tools.removeFromList(this,grassArr);
         console.log("tot")
     };

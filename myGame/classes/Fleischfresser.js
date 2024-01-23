@@ -24,11 +24,11 @@ module.exports = class Fleischfresser extends Lebewesen {
         if (grasfresser.length > 0) {
             this.energie = this.energie + 100;
             let chosenGrasfresser = grasfresser[tools.randomNumber(0,grasfresser.length)];
-            matrix[this.zeile][this.spalte] = 0;
+            matrix[this.x][this.y] = 0;
             tools.removeFromList(chosenGrasfresser,grazerArr);
-            this.zeile = chosenGrasfresser[0];
-            this.spalte = chosenGrasfresser[1];
-            matrix[this.zeile][this.spalte] = 3;
+            this.x = chosenGrasfresser[0];
+            this.y = chosenGrasfresser[1];
+            matrix[this.x][this.y] = 3;
         } else {
             this.energie--;
         }
@@ -39,13 +39,13 @@ module.exports = class Fleischfresser extends Lebewesen {
             let chosenGrass = grass[tools.randomNumber(0,grass.length)];
             tools.removeFromList(chosenGrass,grassArr);
             let newFleischfresser = new Fleischfresser(chosenGrass[0],chosenGrass[1])
-            console.log("Fleischfresser", newFleischfresser.zeile, newFleischfresser.spalte)
+            console.log("Fleischfresser", newFleischfresser.x, newFleischfresser.y)
             newFleischfresser.placeInMatrix();
             predatorArr.push(newFleischfresser);
         };
     };
     die() {
-        matrix[this.zeile][this.spalte] = 0;
+        matrix[this.x][this.y] = 0;
         tools.removeFromList(this,predatorArr);
     };
 };

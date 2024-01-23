@@ -4,7 +4,7 @@ module.exports = class Grass extends Lebewesen {
     energie = 0;
     farbe = 1;
     spielzug() {
-        if (this.energie > 10) {
+        if (this.energie > 4) {
             this.plantNewGrass()
             this.energie = 0
         } else {
@@ -17,7 +17,7 @@ module.exports = class Grass extends Lebewesen {
 
             let chosenDirt = dirt[Math.floor(Math.random(0,dirt.length))];
             let newGrass = new Grass(chosenDirt[0],chosenDirt[1])
-            console.log("Gras", newGrass.zeile, newGrass.spalte)
+            console.log("Gras", newGrass.x, newGrass.y)
             newGrass.placeInMatrix();
             grassArr.push(newGrass);
         };

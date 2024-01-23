@@ -5,14 +5,8 @@ const Fleischfresser = require("./classes/Fleischfresser.js");
 // const funct = require("./client/client.js")
 
 const express = require("express");
-const { ClientRequest } = require("http");
+// const { ClientRequest } = require("http");
 const app = express();
-
-app.use(express.static("./client"));
-
-app.get("/", function (req, res) {
-    res.redirect("index.html");
-});
 
 let server = require('http').Server(app);
 let io = require('socket.io')(server);
@@ -21,17 +15,23 @@ let clients = [];
 let isGameRunning = false;
 let interValID;
 
+app.use(express.static("./client"));
+
+app.get("/", function (req, res) {
+    res.redirect("index.html");
+});
+
 server.listen(3000, function () {
     console.log("Der Server läuft auf port 3000...");
 
-    io.on("connection", function (socket) {
+    io.on("connection", function(socket) {
         console.log("ws connection established...");
         clients.push(socket.id);
         // Spielstart
         if (clients.length == 1 && isGameRunning == false) {
             console.log("Starte Spiel... Wenn noch nicht gestartet...")
             initGame()
-            interValID = setInterval(updateGame, 1000);
+            interValID = setInterval(updateGame, 900);
             isGameRunning = true;
         }
         // Verhalten wenn Clients verlassen
@@ -48,8 +48,6 @@ server.listen(3000, function () {
             }
         });
     });
-
-
 });
 
 
@@ -119,12 +117,11 @@ function initGame() {
         }
     }
     console.log("Sende matrix zu clients");
-    io.sockets.emit("matrix", matrix);
+    io.sockets.emit("matrix", matrix); // send matrix
 }
 
 function updateGame() {
     console.log("update game...");
-    // funct.draw(matrix)
     for (let i = 0; i < grassArr.length; i++) {
         let grassObj = grassArr[i];
         grassObj.spielzug();
@@ -144,7 +141,10 @@ function updateGame() {
         predatorObj.spielzug();
 
     }
-    // console.log(matrix);
+    console.log(matrix);
+
+    console.log("sende matrix zu clients...");
+    io.sockets.emit('matrix', matrix);
 }
 
 

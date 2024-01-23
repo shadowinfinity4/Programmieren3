@@ -1,62 +1,62 @@
 module.exports = class Lebewesen {
-    zeile;
-    spalte;
+    x;
+    y;
     constructor(z,s,) {
-        this.zeile = z;
-        this.spalte = s;
+        this.x = z;
+        this.y = s;
     }
     placeInMatrix() {
-        matrix[this.zeile][this.spalte] = this.farbe;
+        matrix[this.x][this.y] = this.farbe;
     };
     createDirtMatrix() {
         let neighbours = [
-            [this.zeile + 1,this.spalte],
-            [this.zeile - 1,this.spalte],
-            [this.zeile,this.spalte + 1],
-            [this.zeile,this.spalte - 1],
-            [this.zeile - 1,this.spalte - 1],
-            [this.zeile + 1,this.spalte + 1],
-            [this.zeile - 1,this.spalte + 1],
-            [this.zeile + 1,this.spalte - 1]
+            [this.x + 1,this.y],
+            [this.x - 1,this.y],
+            [this.x,this.y + 1],
+            [this.x,this.y - 1],
+            [this.x - 1,this.y - 1],
+            [this.x + 1,this.y + 1],
+            [this.x - 1,this.y + 1],
+            [this.x + 1,this.y - 1]
         ]
         return neighbours.filter(koordinatenpaar => this.isWesen(koordinatenpaar,0));
     };
     createGrassMatrix() {
         let neighbours = [
-            [this.zeile + 1,this.spalte],
-            [this.zeile - 1,this.spalte],
-            [this.zeile,this.spalte + 1],
-            [this.zeile,this.spalte - 1],
-            [this.zeile - 1,this.spalte - 1],
-            [this.zeile + 1,this.spalte + 1],
-            [this.zeile - 1,this.spalte + 1],
-            [this.zeile + 1,this.spalte - 1]
+            [this.x + 1,this.y],
+            [this.x - 1,this.y],
+            [this.x,this.y + 1],
+            [this.x,this.y - 1],
+            [this.x - 1,this.y - 1],
+            [this.x + 1,this.y + 1],
+            [this.x - 1,this.y + 1],
+            [this.x + 1,this.y - 1]
         ]
         return neighbours.filter(koordinatenpaar => this.isWesen(koordinatenpaar,1));
     };
     createSnowMatrix() {
         let neighbours = [
-            [this.zeile + 1,this.spalte],
-            [this.zeile - 1,this.spalte],
-            [this.zeile,this.spalte + 1],
-            [this.zeile,this.spalte - 1],
-            [this.zeile - 1,this.spalte - 1],
-            [this.zeile + 1,this.spalte + 1],
-            [this.zeile - 1,this.spalte + 1],
-            [this.zeile + 1,this.spalte - 1]
+            [this.x + 1,this.y],
+            [this.x - 1,this.y],
+            [this.x,this.y + 1],
+            [this.x,this.y - 1],
+            [this.x - 1,this.y - 1],
+            [this.x + 1,this.y + 1],
+            [this.x - 1,this.y + 1],
+            [this.x + 1,this.y - 1]
         ]
         return neighbours.filter(koordinatenpaar => this.isWesen(koordinatenpaar,4));
     };
     createGrasfresserMatrix() {
         let neighbours = [
-            [this.zeile + 1,this.spalte],
-            [this.zeile - 1,this.spalte],
-            [this.zeile,this.spalte + 1],
-            [this.zeile,this.spalte - 1],
-            [this.zeile - 1,this.spalte - 1],
-            [this.zeile + 1,this.spalte + 1],
-            [this.zeile - 1,this.spalte + 1],
-            [this.zeile + 1,this.spalte - 1]
+            [this.x + 1,this.y],
+            [this.x - 1,this.y],
+            [this.x,this.y + 1],
+            [this.x,this.y - 1],
+            [this.x - 1,this.y - 1],
+            [this.x + 1,this.y + 1],
+            [this.x - 1,this.y + 1],
+            [this.x + 1,this.y - 1]
         ]
         return neighbours.filter(koordinatenpaar => this.isWesen(koordinatenpaar,2));
     };
