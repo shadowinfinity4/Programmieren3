@@ -14,7 +14,7 @@ function main(){
     socket.on("matrix",gotMatrix)
 
     let knopf = document.getElementById("knopf")
-    
+    // knopf beenden
 };
 
 function setup(){
