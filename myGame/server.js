@@ -146,4 +146,4 @@ function updateGame() {
 }
 
 
-
+module.exports = {initGame}
