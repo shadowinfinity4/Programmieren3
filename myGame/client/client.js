@@ -1,5 +1,7 @@
+const { fill } = require("../server");
+
 let matrix = [];
-let side = 10
+// let side = 10
 
 function main() {
     const socket = io();
@@ -28,7 +30,11 @@ function draw() {
     for (let x = 0; x < matrix.length; x++) {
         for (let y = 0; y < matrix[x].length; y++) {
             if (matrix[x][y] === 1) {
+                // if (season === true)
                 fill("green");
+                // else {
+                //     fill("white")
+                }
             } else if (matrix[x][y] === 2) {
                 fill("red")
             } else if (matrix[x][y] === 3) {

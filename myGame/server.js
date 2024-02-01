@@ -14,6 +14,7 @@ let io = require('socket.io')(server);
 let clients = [];
 let isGameRunning = false;
 let interValID;
+let inter2ValID;
 
 app.use(express.static("./client"));
 
@@ -32,6 +33,7 @@ server.listen(3000, function () {
             console.log("Starte Spiel... Wenn noch nicht gestartet...")
             initGame()
             interValID = setInterval(updateGame, 900);
+            inter2ValID = setInterval(updateSeasons, 3000) 
             isGameRunning = true;
         }
         // Verhalten wenn Clients verlassen
@@ -98,6 +100,7 @@ function initGame() {
     console.log('init game....');
     matrix = getRandMatrix(50, 50);
     addMoreCreatures();
+    isSpring = true
 
     // durch Matrix laufen und Lebewesen erstellen
     for (let y = 0; y < matrix.length; y++) {
@@ -143,6 +146,36 @@ function updateGame() {
 
     console.log("sende matrix zu clients...");
     io.sockets.emit('matrix', matrix);
+
+    if (grassArr.length < 8) {
+        for (let i = 0; i < grassArr.length; i++) {
+            let grassObj = grassArr[i]
+            console.log("GRASS")
+            grassObj.plantNewGrass()
+        }
+    }
+
+    if (grazerArr.length < 8) {
+        for (let i = 0; i < grazerArr.length; i++) {
+            let grazerObj = grazerArr[i]
+            console.log("GRAZER")
+            grazerObj.multiply()
+        }
+    }
+
+    if (predatorArr.length < 8) {
+        for (let i = 0; i < predatorArr.length; i++) {
+            let predatorObj = predatorArr[i]
+            console.log("PREDATOR")
+            predatorObj.multiply()
+        }
+    }
+}
+
+function updateSeasons() {
+    console.log("new season...")
+    // seasons funktion
+    isSpring = !isSpring
 }
 
 
